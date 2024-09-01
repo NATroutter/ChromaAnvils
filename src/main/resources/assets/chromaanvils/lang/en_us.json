@@ -5,5 +5,19 @@
   "text.autoconfig.chromaanvils.option.NameLimit": "Name Limit",
   "text.autoconfig.chromaanvils.option.NameLimit.@Tooltip": "§4What does this do?\n§7This determines how many characters you can have in the final name\nexcluding the color/style tags",
   "text.autoconfig.chromaanvils.option.BlackListedItems": "Blacklisted Items",
-  "text.autoconfig.chromaanvils.option.BlackListedItems.@Tooltip": "§4What does this do?\n§7This allows you to blacklist what items\ncan not have colored names!\n\n§7Example: §cminecraft:name_tag"
+  "text.autoconfig.chromaanvils.option.BlackListedItems.@Tooltip": "§4What does this do?\n§7This allows you to blacklist what items\ncan not have colored names!\n\n§7Example: §cminecraft:name_tag",
+
+  "text.autoconfig.chromaanvils.option.PresetsEnabled": "Enable presets",
+  "text.autoconfig.chromaanvils.option.PresetsEnabled.@Tooltip": "§4What does this do?\n§7As the name says enables presets",
+
+  "text.autoconfig.chromaanvils.option.Presets": "Presets",
+  "text.autoconfig.chromaanvils.option.Presets.@Tooltip": "§4What are Presets?\n§7Presets are a feature that makes handling long names with many tags easier.\nFor example, you can have a preset like \"<tag1>\",\nand when you type that in the name field,\nit will be replaced with something like \"<red>this <green>is <blue>tag1\".",
+
+  "text.autoconfig.chromaanvils.option.Preset": "Presets",
+
+  "text.autoconfig.chromaanvils.option.Preset.tag": "Tag",
+  "text.autoconfig.chromaanvils.option.Preset.tag.@Tooltip": "§4Whats this for?\n§7This is the name part of the tag",
+
+  "text.autoconfig.chromaanvils.option.Preset.content": "Content",
+  "text.autoconfig.chromaanvils.option.Preset.content.@Tooltip": "§4Whats this for?\n§7This is the content part of the tag"
 }

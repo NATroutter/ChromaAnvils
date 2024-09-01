@@ -1,9 +1,18 @@
 package fi.natroutter.chromaanvils.utilities;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Utils {
+
+    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> key) {
+        Map<Object, Boolean> map = new ConcurrentHashMap<>();
+        return t -> map.putIfAbsent(key.apply(t), Boolean.TRUE) == null;
+    }
 
     public static String extractWithTags(String input, int amount) {
         StringBuilder result = new StringBuilder();
