@@ -40,7 +40,7 @@ With this simple fabric mod you can add a little color to your items with Chroma
 
 🟢 **No mandatory client installation.**  
 🟢 **MiniMessage formating.**  
-🟢 **Permission support for server installation,.**  
+🟢 **Permission support for server installation.**  
 🟢 **Ability to blacklist items.**  
 🟢 **Extensive configs.**
 
@@ -61,6 +61,18 @@ With this simple fabric mod you can add a little color to your items with Chroma
 
 ## 🔒 Permissions
 If you have a permission plugin/mod like [LuckPerms](https://luckperms.net/), you are required to have the permission ``chromaanvils.use`` to be able to use it. If you don't have any permission plugins/mods, all players are able to use it.
+
+Additionally, you will also need to have the following permissions, corresponding to the formatting you want to allow:
+
+```properties
+chromaanvils.colors
+chromaanvils.decorations
+chromaanvils.font
+chromaanvils.gradient
+chromaanvils.rainbow
+chromaanvils.transition
+chromaanvils.reset
+```
 
 ## ✏️ Formating
 

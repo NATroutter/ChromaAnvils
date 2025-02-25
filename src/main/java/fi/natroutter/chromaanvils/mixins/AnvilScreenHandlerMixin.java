@@ -1,11 +1,16 @@
 package fi.natroutter.chromaanvils.mixins;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import com.sun.source.doctree.SeeTree;
 import fi.natroutter.chromaanvils.ChromaAnvils;
 import fi.natroutter.chromaanvils.utilities.Colors;
 import fi.natroutter.chromaanvils.utilities.Utils;
 import me.lucko.fabric.api.permissions.v0.Permissions;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
 import net.kyori.adventure.text.Component;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.command.CommandSource;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -13,6 +18,9 @@ import net.minecraft.screen.AnvilScreenHandler;
 import net.minecraft.screen.ForgingScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.screen.slot.ForgingSlotsManager;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,9 +36,10 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
 
     @Shadow private @Nullable String newItemName;
 
-    public AnvilScreenHandlerMixin(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
-        super(type, syncId, playerInventory, context);
+    public AnvilScreenHandlerMixin(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, ScreenHandlerContext context, ForgingSlotsManager forgingSlotsManager) {
+        super(type, syncId, playerInventory, context, forgingSlotsManager);
     }
+
 
     @Inject(method = "updateResult", at = @At(
             value = "INVOKE",
@@ -59,16 +68,24 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
 
     @Unique
     private void ModifyResult(ItemStack stack) {
-        boolean hasPerms = Permissions.check(this.player, ChromaAnvils.MOD_ID+".use",true);
+        if (MinecraftClient.getInstance().isIntegratedServerRunning()) {
+            if (this.newItemName != null && !ChromaAnvils.config().isBlacklisted(stack)) {
 
-        if (this.newItemName != null && hasPerms && !ChromaAnvils.config().isBlacklisted(stack)) {
-            Component comp = Colors.deserialize(this.newItemName);
-            String sComp = Colors.serialize(comp);
-            String name = Utils.extractWithTags(sComp, ChromaAnvils.config().NameLimit);
+                String clamped = this.newItemName.substring(0,Math.min(this.newItemName.length(), ChromaAnvils.config().NameLimit));
 
-            Component finalComp = Colors.deserialize(name);
-            Text finalText = Colors.toNative(finalComp);
-            stack.set(DataComponentTypes.CUSTOM_NAME, finalText);
+                Component comp = Colors.deserialize(clamped);
+                String serialize = Colors.serialize(comp);
+
+                String name = Utils.extractWithTags(serialize, ChromaAnvils.config().NameLimit);
+
+                Component finalComp = Colors.deserialize(name);
+                stack.set(DataComponentTypes.CUSTOM_NAME, Colors.toNative(finalComp));
+            }
+        } else {
+            String comp = this.newItemName.substring(0,Math.min(this.newItemName.length(), ChromaAnvils.config().NameLimit));
+            String name = Utils.extractWithTags(comp, ChromaAnvils.config().NameLimit);
+            stack.set(DataComponentTypes.CUSTOM_NAME, Text.of(name));
         }
+
     }
 }

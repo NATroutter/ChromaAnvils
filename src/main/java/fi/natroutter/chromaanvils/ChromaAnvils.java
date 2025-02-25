@@ -7,7 +7,7 @@ import me.shedaniel.autoconfig.ConfigHolder;
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.kyori.adventure.platform.fabric.FabricServerAudiences;
+import net.kyori.adventure.platform.modcommon.MinecraftServerAudiences;
 
 public class ChromaAnvils implements ModInitializer {
 
@@ -20,9 +20,14 @@ public class ChromaAnvils implements ModInitializer {
 
     @Override
     public void onInitialize() {
+
         config = AutoConfig.register(ModConfig.class, Toml4jConfigSerializer::new);
 
-        ServerLifecycleEvents.SERVER_STARTED.register(server -> Colors.audiences = FabricServerAudiences.of(server));
-        ServerLifecycleEvents.SERVER_STOPPED.register(server -> Colors.audiences = null);
+        ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+            Colors.serverAudiences = MinecraftServerAudiences.of(server);
+        });
+        ServerLifecycleEvents.SERVER_STOPPED.register(server -> {
+            Colors.serverAudiences = null;
+        });
     }
 }

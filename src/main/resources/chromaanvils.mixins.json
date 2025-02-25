@@ -4,6 +4,12 @@
   "package": "fi.natroutter.chromaanvils.mixins",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+
+  ],
+  "server": [
+    "AnvilScreenHandlerServerMixin"
+  ],
+  "client": [
     "AnvilScreenMixin",
     "AnvilScreenHandlerMixin"
   ],
