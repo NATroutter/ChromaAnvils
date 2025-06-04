@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "chromaanvils",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "name": "ChromaAnvils",
   "description": "Allow player(s) to use minimessage color and styling tags in anvils",
   "authors": [

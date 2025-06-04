@@ -65,28 +65,6 @@ public abstract class AnvilScreenHandlerServerMixin extends ForgingScreenHandler
         cir.setReturnValue(name);
     }
 
-    @Unique
-    private TagResolver[] GetTagsFromPlayerPermissions(ServerPlayerEntity player) {
-        boolean hasColorPerms = Permissions.check(player, ChromaAnvils.MOD_ID + ".colors", false);
-        boolean hasDecorPerms = Permissions.check(player, ChromaAnvils.MOD_ID + ".decorations", false);
-        boolean hasFontPerms = Permissions.check(player, ChromaAnvils.MOD_ID + ".font", false);
-        boolean hasGradientPerms = Permissions.check(player, ChromaAnvils.MOD_ID + ".gradient", false);
-        boolean hasRainbowPerms = Permissions.check(player, ChromaAnvils.MOD_ID + ".rainbow", false);
-        boolean hasTransitionPerms = Permissions.check(player, ChromaAnvils.MOD_ID + ".transition", false);
-        boolean hasResetPerms = Permissions.check(player, ChromaAnvils.MOD_ID + ".reset", true);
-        
-        ArrayList<TagResolver> tags = new ArrayList<TagResolver>();
-        if (hasColorPerms) tags.add(StandardTags.color());
-        if (hasDecorPerms) tags.add(StandardTags.decorations());
-        if (hasFontPerms) tags.add(StandardTags.font());
-        if (hasGradientPerms) tags.add(StandardTags.gradient());
-        if (hasRainbowPerms) tags.add(StandardTags.rainbow());
-        if (hasTransitionPerms) tags.add(StandardTags.transition());
-        if (hasResetPerms) tags.add(StandardTags.reset());
-        int len = tags.size();
-
-        return tags.toArray(new TagResolver[len]);
-    }
 
     @Unique
     private void ModifyResult(ItemStack stack) {
@@ -95,13 +73,13 @@ public abstract class AnvilScreenHandlerServerMixin extends ForgingScreenHandler
         Text result;
 
         if (this.player instanceof ServerPlayerEntity serverPlayer) {
-            boolean hasPerms = Permissions.check(serverPlayer, ChromaAnvils.MOD_ID + ".use", false);
+            boolean hasPerms = Utils.hasPermission(serverPlayer, "use", false);
 
             if (hasPerms) {
                 if (this.newItemName != null && !ChromaAnvils.config().isBlacklisted(stack)) {
                     String clamped = this.newItemName.substring(0,Math.min(this.newItemName.length(), ChromaAnvils.config().NameLimit));
 
-                    TagResolver[] tags = GetTagsFromPlayerPermissions(serverPlayer);
+                    TagResolver[] tags = Utils.GetTagsFromPlayerPermissions(serverPlayer);
 
                     Component comp = Colors.deserialize(clamped, tags);
                     String serialize = Colors.serialize(comp);

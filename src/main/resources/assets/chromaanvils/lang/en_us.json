@@ -3,7 +3,9 @@
   "text.autoconfig.chromaanvils.option.AnvilTextLimit": "Anvil Text Limit",
   "text.autoconfig.chromaanvils.option.AnvilTextLimit.@Tooltip": "§4What does this do?\n§7This determines how many characters you can type to anvils text filed",
   "text.autoconfig.chromaanvils.option.NameLimit": "Name Limit",
+  "text.autoconfig.chromaanvils.option.UsePermissions": "Use Permissions",
   "text.autoconfig.chromaanvils.option.NameLimit.@Tooltip": "§4What does this do?\n§7This determines how many characters you can have in the final name\nexcluding the color/style tags",
+  "text.autoconfig.chromaanvils.option.UsePermissions.@Tooltip": "§4What does this do?\n§7This determines are permissions used or not.\nThis is ment for servers it doesn't do anything when playing singleplayer",
   "text.autoconfig.chromaanvils.option.BlackListedItems": "Blacklisted Items",
   "text.autoconfig.chromaanvils.option.BlackListedItems.@Tooltip": "§4What does this do?\n§7This allows you to blacklist what items\ncan not have colored names!\n\n§7Example: §cminecraft:name_tag"
 }

@@ -1,9 +1,43 @@
 package fi.natroutter.chromaanvils.utilities;
 
+import fi.natroutter.chromaanvils.ChromaAnvils;
+import me.lucko.fabric.api.permissions.v0.Permissions;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
+import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
+
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Utils {
+
+
+    public static boolean hasPermission(PlayerEntity player, String perm, boolean defaultValue) {
+        if (!ChromaAnvils.config().UsePermissions) {
+            return true;
+        }
+        if (!(player instanceof ServerPlayerEntity)) {
+            return true;
+        }
+        return Permissions.check(player, ChromaAnvils.MOD_ID + "." + perm, defaultValue);
+    }
+
+    public static TagResolver[] GetTagsFromPlayerPermissions(ServerPlayerEntity player) {
+        ArrayList<TagResolver> tags = new ArrayList<TagResolver>();
+        if (hasPermission(player, "colors", false)) tags.add(StandardTags.color());
+        if (hasPermission(player, "decorations", false)) tags.add(StandardTags.decorations());
+        if (hasPermission(player, "font", false)) tags.add(StandardTags.font());
+        if (hasPermission(player, "gradient", false)) tags.add(StandardTags.gradient());
+        if (hasPermission(player, "rainbow", false)) tags.add(StandardTags.rainbow());
+        if (hasPermission(player, "transition", false)) tags.add(StandardTags.transition());
+        if (hasPermission(player, "reset", false)) tags.add(StandardTags.reset());
+        int len = tags.size();
+        tags.forEach(e-> {
+        });
+        return tags.toArray(new TagResolver[tags.size()]);
+    }
 
     public static String extractWithTags(String input, int amount) {
         StringBuilder result = new StringBuilder();

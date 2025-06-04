@@ -3,6 +3,7 @@ package fi.natroutter.chromaanvils.mixins;
 import com.llamalad7.mixinextras.sugar.Local;
 import fi.natroutter.chromaanvils.ChromaAnvils;
 import fi.natroutter.chromaanvils.utilities.Colors;
+import fi.natroutter.chromaanvils.utilities.Utils;
 import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -51,7 +52,7 @@ public abstract class AnvilScreenMixin extends ForgingScreen<AnvilScreenHandler>
     ))
     private void updateResult(CallbackInfo ci, @Local(argsOnly = true) ItemStack stack) {
         if (this.player instanceof ServerPlayerEntity serverPlayer) {
-            boolean hasPerms = Permissions.check(serverPlayer, ChromaAnvils.MOD_ID + ".use", false);
+            boolean hasPerms = Utils.hasPermission(serverPlayer, "use", false);
             if (!hasPerms) return;
         }
 
