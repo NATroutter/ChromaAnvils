@@ -25,6 +25,8 @@ public class Colors {
                         .resolver(StandardTags.rainbow())
                         .resolver(StandardTags.transition())
                         .resolver(StandardTags.reset())
+                        .resolver(StandardTags.shadowColor())
+                        .resolver(StandardTags.pride())
                         .build()
                 ).build();
     }

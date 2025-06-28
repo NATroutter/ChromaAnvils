@@ -33,10 +33,9 @@ public class Utils {
         if (hasPermission(player, "rainbow", false)) tags.add(StandardTags.rainbow());
         if (hasPermission(player, "transition", false)) tags.add(StandardTags.transition());
         if (hasPermission(player, "reset", false)) tags.add(StandardTags.reset());
-        int len = tags.size();
-        tags.forEach(e-> {
-        });
-        return tags.toArray(new TagResolver[tags.size()]);
+        if (hasPermission(player, "shadow", false)) tags.add(StandardTags.shadowColor());
+        if (hasPermission(player, "pride", false)) tags.add(StandardTags.pride());
+        return tags.toArray(new TagResolver[0]);
     }
 
     public static String extractWithTags(String input, int amount) {
