@@ -72,6 +72,8 @@ chromaanvils.gradient
 chromaanvils.rainbow
 chromaanvils.transition
 chromaanvils.reset
+chromaanvils.shadow
+chromaanvils.pride
 ```
 
 ## ✏️ Formating
@@ -81,15 +83,18 @@ chromaanvils.reset
 You can also use the [MiniMessage Viewer](https://webui.advntr.dev/) to "generate" the styling so that you dont have to fiddle with the tags
 
 
-| Tag                                            | Example                                                                     | Description                                                                                                                                   |
-|------------------------------------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| ```<named color>``` ```<hex color>```          | ```<dark_red>``` ```<#ff0000```                                             | Changes the color for next part of the text                                                                                                   |
-| ```<reset>```                                  | ```<reset>```                                                               | Close all currently open tags, resetting color/decoration/etc.                                                                                |
-| ```<rainbow:[!][phase]>```                     | ```<rainbow>``` ```<rainbow:!>``` ```<rainbow:2>``` ```<rainbow:!2>```      | ```!``` reverses the rainbow direction and ```phase``` shifts the rainbow starting point                                                      |
-| ```<gradient:[color1]:[color...]>```           | ```<gradient:#ff0000:#00ff00>Example</gradient>```                          | Transitions between colors.                                                                                                                   |
-| ```<transition:[color1]:[color...]:[phase]>``` | ```<transition:#ffffff:#000000:0>Example</transition>```                    | Transitions between colors. Similar to a gradient, but everything is the same color and the phase chooses that color                          |
-| ```<font:[key]>```                             | ```<font:alt>Example</font>```                                              | Allows to change the font of the text                                                                                                         |
+| Tag                                            | Example                                                                     | Description                                                                                                                                |
+|------------------------------------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| ```<named color>``` ```<hex color>```          | ```<dark_red>``` ```<#ff0000```                                             | Changes the color for next part of the text                                                                                                |
+| ```<reset>```                                  | ```<reset>```                                                               | Close all currently open tags, resetting color/decoration/etc.                                                                             |
+| ```<rainbow:[!][phase]>```                     | ```<rainbow>``` ```<rainbow:!>``` ```<rainbow:2>``` ```<rainbow:!2>```      | ```!``` reverses the rainbow direction and ```phase``` shifts the rainbow starting point                                                   |
+| ```<gradient:[color1]:[color...]>```           | ```<gradient:#ff0000:#00ff00>Example</gradient>```                          | Transitions between colors.                                                                                                                |
+| ```<transition:[color1]:[color...]:[phase]>``` | ```<transition:#ffffff:#000000:0>Example</transition>```                    | Transitions between colors. Similar to a gradient, but everything is the same color and the phase chooses that color                       |
+| ```<font:[key]>```                             | ```<font:alt>Example</font>```                                              | Allows to change the font of the text                                                                                                      |
 | ```<[deocraion]>```                            | ```<bold>``` ```<underlined>``` ```<st>``` ```<obf>``` ```<i>``` ```<!i>``` | Decorate the next part of the text. You can use ```!``` to reverse the decoration. Look at the decoration table below for all available tags. |
+| ```<shadow:_colorNameOrHex_:[alpha_as_float]>```                                  | ```<shadow:aqua:0.5>``` ```<shadow:#55FF55>     ```                               | Change your text shadow color and opacity                                                                                                  |
+| ```<pride[:flag]>```                                 | ```Happy <pride>pride month</pride>!```                                                               | Color your items with different types of pride flags ```pride, progress, trans, bi, pan, nb, lesbian, ace, agender, demisexual, genderqueer, genderfluid, intersex, aro, baker, philly, queer, gay, bigender or demigender```                                                                                      |
+
 
 ## ✨ Decorations tags
 | Decoraions           | Alias                |
@@ -109,8 +114,8 @@ For more information about you can refer minimessages own [documentation](https:
 
 </div>
 
-- [Fabric API](https://modrinth.com/mod/fabric-api) | 0.100.4 (or newer)
-- [Cloth Config](https://modrinth.com/mod/cloth-config) | 15.0.127 (or newer)
+- [Fabric API](https://modrinth.com/mod/fabric-api)
+- [Cloth Config](https://modrinth.com/mod/cloth-config)
 
 <div align="center" style="text-align: center;display:block; margin:auto;">
 
