@@ -25,7 +25,7 @@ public class Utils {
     }
 
     public static TagResolver[] GetTagsFromPlayerPermissions(ServerPlayerEntity player) {
-        ArrayList<TagResolver> tags = new ArrayList<TagResolver>();
+        ArrayList<TagResolver> tags = new ArrayList<>();
         if (hasPermission(player, "colors", false)) tags.add(StandardTags.color());
         if (hasPermission(player, "decorations", false)) tags.add(StandardTags.decorations());
         if (hasPermission(player, "font", false)) tags.add(StandardTags.font());
@@ -35,6 +35,8 @@ public class Utils {
         if (hasPermission(player, "reset", false)) tags.add(StandardTags.reset());
         if (hasPermission(player, "shadow", false)) tags.add(StandardTags.shadowColor());
         if (hasPermission(player, "pride", false)) tags.add(StandardTags.pride());
+        if (hasPermission(player, "sprite", false)) tags.add(StandardTags.sprite());
+        if (hasPermission(player, "head", false)) tags.add(StandardTags.sequentialHead());
         return tags.toArray(new TagResolver[0]);
     }
 
@@ -74,35 +76,35 @@ public class Utils {
 
         return result.toString();
     }
-
-    public static String extractWithTags2(String input, int amount) {
-        StringBuilder result = new StringBuilder();
-        Pattern pattern = Pattern.compile("<[^>]+>|[^<]+");
-        Matcher matcher = pattern.matcher(input);
-        int count = 0;
-
-        while (matcher.find() && count < amount) {
-            String match = matcher.group();
-            if (match.startsWith("<")) {
-                String plain = Colors.plain(Colors.deserialize(match));
-                if (!plain.isEmpty()) {
-                    continue;
-                }
-                result.append(match);
-            } else {
-                if (match.endsWith("\\")) {
-                    match = match.replace("\\", "");
-                }
-                if (count + match.length() <= amount) {
-                    result.append(match);
-                    count += match.length();
-                } else {
-                    result.append(match, 0, amount - count);
-                    count = amount;
-                }
-            }
-        }
-
-        return result.toString();
-    }
+//
+//    public static String extractWithTags2(String input, int amount) {
+//        StringBuilder result = new StringBuilder();
+//        Pattern pattern = Pattern.compile("<[^>]+>|[^<]+");
+//        Matcher matcher = pattern.matcher(input);
+//        int count = 0;
+//
+//        while (matcher.find() && count < amount) {
+//            String match = matcher.group();
+//            if (match.startsWith("<")) {
+//                String plain = Colors.plain(Colors.deserialize(match));
+//                if (!plain.isEmpty()) {
+//                    continue;
+//                }
+//                result.append(match);
+//            } else {
+//                if (match.endsWith("\\")) {
+//                    match = match.replace("\\", "");
+//                }
+//                if (count + match.length() <= amount) {
+//                    result.append(match);
+//                    count += match.length();
+//                } else {
+//                    result.append(match, 0, amount - count);
+//                    count = amount;
+//                }
+//            }
+//        }
+//
+//        return result.toString();
+//    }
 }

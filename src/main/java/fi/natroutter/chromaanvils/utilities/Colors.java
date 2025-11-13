@@ -1,6 +1,5 @@
 package fi.natroutter.chromaanvils.utilities;
 
-import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.platform.modcommon.MinecraftClientAudiences;
 import net.kyori.adventure.platform.modcommon.MinecraftServerAudiences;
 import net.kyori.adventure.text.Component;
@@ -8,7 +7,6 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver.Builder;
 import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import net.minecraft.text.Text;
 
 public class Colors {
@@ -27,6 +25,8 @@ public class Colors {
                         .resolver(StandardTags.reset())
                         .resolver(StandardTags.shadowColor())
                         .resolver(StandardTags.pride())
+                        .resolver(StandardTags.sprite())
+                        .resolver(StandardTags.sequentialHead())
                         .build()
                 ).build();
     }
@@ -48,9 +48,9 @@ public class Colors {
         return MinecraftClientAudiences.of();
     }
 
-    public static String plain(Component component) {
-        return PlainTextComponentSerializer.plainText().serialize(component);
-    }
+//    public static String plain(Component component) {
+//        return PlainTextComponentSerializer.plainText().serialize(component);
+//    }
 
     public static String serialize(Component component) {
         return miniMessage().serialize(component);
