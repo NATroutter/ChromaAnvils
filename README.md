@@ -74,6 +74,8 @@ chromaanvils.transition
 chromaanvils.reset
 chromaanvils.shadow
 chromaanvils.pride
+chromaanvils.sprite
+chromaanvils.head
 ```
 
 ## ✏️ Formating
@@ -94,7 +96,8 @@ You can also use the [MiniMessage Viewer](https://webui.advntr.dev/) to "generat
 | ```<[deocraion]>```                            | ```<bold>``` ```<underlined>``` ```<st>``` ```<obf>``` ```<i>``` ```<!i>``` | Decorate the next part of the text. You can use ```!``` to reverse the decoration. Look at the decoration table below for all available tags. |
 | ```<shadow:_colorNameOrHex_:[alpha_as_float]>```                                  | ```<shadow:aqua:0.5>``` ```<shadow:#55FF55>     ```                               | Change your text shadow color and opacity                                                                                                  |
 | ```<pride[:flag]>```                                 | ```Happy <pride>pride month</pride>!```                                                               | Color your items with different types of pride flags ```pride, progress, trans, bi, pan, nb, lesbian, ace, agender, demisexual, genderqueer, genderfluid, intersex, aro, baker, philly, queer, gay, bigender or demigender```                                                                                      |
-
+| ```<sprite[:atlas]>```                                 | ```<sprite:blocks:block/stone>```                                                               | Embeds a sprite icon from a specified texture atlas directly into your item name. The atlas parameter specifies the texture atlas to use (e.g., blocks, items), followed by the sprite path. This allows you to add visual icons alongside your text.                                                                                      |
+| ```<head:name\|uuid\|texture[:outer_layer]>```                                 | ```My favorite dev is <head:9f55c7c9-fecb-4baa-a65d-da2bb0aabde1>.```                                                               | Displays a player head in your item name. You can specify the player by their username, UUID, or custom texture value. The optional outer_layer parameter controls whether to show the second layer of the player skin (like hats or overlays).                                                                                      |
 
 ## ✨ Decorations tags
 | Decoraions           | Alias                |
