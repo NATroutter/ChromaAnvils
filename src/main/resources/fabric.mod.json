@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "chromaanvils",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "name": "ChromaAnvils",
   "description": "Allow player(s) to use minimessage color and styling tags in anvils",
   "authors": [
@@ -27,14 +27,14 @@
     "chromaanvils.mixins.json"
   ],
   "depends": {
-    "minecraft": ">=1.21.10",
-    "fabricloader": ">=0.17.3",
+    "minecraft": ">=1.21.11",
+    "fabricloader": ">=0.18.2",
     "fabric": "*",
-    "fabric-api": ">=0.138.3",
-    "cloth-config": ">=20.0.149"
+    "fabric-api": ">=0.139.5",
+    "cloth-config": ">=21.11.151"
   },
   "suggests": {
-    "modmenu": ">=15.0.0"
+    "modmenu": ">=17.0.0-alpha.1"
   },
   "custom": {
     "modmenu": {

@@ -6,6 +6,7 @@ import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.world.entity.player.Player;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -14,7 +15,7 @@ import java.util.regex.Pattern;
 public class Utils {
 
 
-    public static boolean hasPermission(PlayerEntity player, String perm, boolean defaultValue) {
+    public static boolean hasPermission(Player player, String perm, boolean defaultValue) {
         if (!ChromaAnvils.config().UsePermissions) {
             return true;
         }

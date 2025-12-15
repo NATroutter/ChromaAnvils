@@ -4,16 +4,19 @@
   "package": "fi.natroutter.chromaanvils.mixins",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-
+	"AnvilMenuMixin",
+	"ItemCombinerMenuMixin"
   ],
   "server": [
-    "AnvilScreenHandlerServerMixin"
+	"ItemCombinerMenuMixin",
+	"fi.natroutter.chromaanvils.old.AnvilScreenMixin"
   ],
   "client": [
-    "AnvilScreenMixin",
-    "AnvilScreenHandlerMixin"
+	"AnvilScreenMixin",
+	"ItemCombinerMenuMixin",
+	"fi.natroutter.chromaanvils.old.AnvilScreenMixin"
   ],
   "injectors": {
-    "defaultRequire": 1
+	"defaultRequire": 1
   }
 }

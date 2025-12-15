@@ -1,16 +1,10 @@
-package fi.natroutter.chromaanvils.mixins;
+package fi.natroutter.chromaanvils.old;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import com.sun.source.doctree.SeeTree;
 import fi.natroutter.chromaanvils.ChromaAnvils;
 import fi.natroutter.chromaanvils.utilities.Colors;
 import fi.natroutter.chromaanvils.utilities.Utils;
-import me.lucko.fabric.api.permissions.v0.Permissions;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.loader.api.FabricLoader;
 import net.kyori.adventure.text.Component;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.command.CommandSource;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -19,9 +13,10 @@ import net.minecraft.screen.ForgingScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.ForgingSlotsManager;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.minecraft.text.Text;
+
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -32,11 +27,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(AnvilScreenHandler.class)
-public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
+public abstract class AnvilScreenHandlerServerMixin extends ForgingScreenHandler {
 
     @Shadow private @Nullable String newItemName;
 
-    public AnvilScreenHandlerMixin(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, ScreenHandlerContext context, ForgingSlotsManager forgingSlotsManager) {
+    public AnvilScreenHandlerServerMixin(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, ScreenHandlerContext context, ForgingSlotsManager forgingSlotsManager) {
         super(type, syncId, playerInventory, context, forgingSlotsManager);
     }
 
@@ -66,25 +61,37 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
         cir.setReturnValue(name);
     }
 
+
     @Unique
     private void ModifyResult(ItemStack stack) {
-        if (MinecraftClient.getInstance().isIntegratedServerRunning()) {
-            if (this.newItemName != null && !ChromaAnvils.config().isBlacklisted(stack)) {
+        if (this.newItemName == null) return;
 
-                String clamped = this.newItemName.substring(0,Math.min(this.newItemName.length(), ChromaAnvils.config().NameLimit));
+        Text result;
 
-                Component comp = Colors.deserialize(clamped);
-                String serialize = Colors.serialize(comp);
+        if (this.player instanceof ServerPlayerEntity serverPlayer) {
+            boolean hasPerms = Utils.hasPermission(serverPlayer, "use", false);
 
-                String name = Utils.extractWithTags(serialize, ChromaAnvils.config().NameLimit);
+            if (hasPerms) {
+                if (this.newItemName != null && !ChromaAnvils.config().isBlacklisted(stack)) {
+                    String clamped = this.newItemName.substring(0,Math.min(this.newItemName.length(), ChromaAnvils.config().NameLimit));
 
-                Component finalComp = Colors.deserialize(name);
-                stack.set(DataComponentTypes.CUSTOM_NAME, Colors.toNative(finalComp));
+                    TagResolver[] tags = Utils.GetTagsFromPlayerPermissions(serverPlayer);
+
+                    Component comp = Colors.deserialize(clamped, tags);
+                    String serialize = Colors.serialize(comp);
+
+                    String name = Utils.extractWithTags(serialize, ChromaAnvils.config().NameLimit);
+
+                    Component finalComp = Colors.deserialize(name, tags);
+
+                    stack.set(DataComponentTypes.CUSTOM_NAME, Colors.toNative(finalComp));
+
+                }
+            } else {
+                String comp = this.newItemName.substring(0,Math.min(this.newItemName.length(), ChromaAnvils.config().NameLimit));
+                String name = Utils.extractWithTags(comp, ChromaAnvils.config().NameLimit);
+                stack.set(DataComponentTypes.CUSTOM_NAME, Text.of(name));
             }
-        } else {
-            String comp = this.newItemName.substring(0,Math.min(this.newItemName.length(), ChromaAnvils.config().NameLimit));
-            String name = Utils.extractWithTags(comp, ChromaAnvils.config().NameLimit);
-            stack.set(DataComponentTypes.CUSTOM_NAME, Text.of(name));
         }
 
     }
