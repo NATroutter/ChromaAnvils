@@ -4,7 +4,9 @@ import fi.natroutter.chromaanvils.ChromaAnvils;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
-import net.minecraft.item.ItemStack;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +28,8 @@ public class ModConfig implements ConfigData {
 
 
     public boolean isBlacklisted(ItemStack stack) {
-        return BlackListedItems.stream().anyMatch(blacklistedId -> blacklistedId.equalsIgnoreCase(stack.getRegistryEntry().getIdAsString()));
+        Identifier itemId = BuiltInRegistries.ITEM.getKey(stack.getItem());
+        return BlackListedItems.stream().anyMatch(item -> item.equalsIgnoreCase(itemId.toString()));
     }
 
 }

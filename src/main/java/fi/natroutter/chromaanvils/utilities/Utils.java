@@ -4,8 +4,7 @@ import fi.natroutter.chromaanvils.ChromaAnvils;
 import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.ArrayList;
@@ -19,13 +18,13 @@ public class Utils {
         if (!ChromaAnvils.config().UsePermissions) {
             return true;
         }
-        if (!(player instanceof ServerPlayerEntity)) {
+        if (!(player instanceof ServerPlayer)) {
             return true;
         }
         return Permissions.check(player, ChromaAnvils.MOD_ID + "." + perm, defaultValue);
     }
 
-    public static TagResolver[] GetTagsFromPlayerPermissions(ServerPlayerEntity player) {
+    public static TagResolver[] GetTagsFromPlayerPermissions(ServerPlayer player) {
         ArrayList<TagResolver> tags = new ArrayList<>();
         if (hasPermission(player, "colors", false)) tags.add(StandardTags.color());
         if (hasPermission(player, "decorations", false)) tags.add(StandardTags.decorations());
