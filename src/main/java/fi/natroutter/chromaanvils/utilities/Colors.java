@@ -7,6 +7,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver.Builder;
 import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
+import net.minecraft.text.Text;
 
 public class Colors {
 
@@ -65,14 +66,14 @@ public class Colors {
         return miniMessage(tags).deserialize(value);
     }
 
-    public static net.minecraft.network.chat.Component toNative(Component component) {
+    public static Text toNative(Component component) {
         if (getServerAudience() != null) {
             return getServerAudience().asNative(component);
         }
         return getClientAudience().asNative(component);
     }
 
-    public static Component toAdventure(net.minecraft.network.chat.Component text) {
+    public static Component toAdventure(Text text) {
         if (getServerAudience() != null) {
             return getServerAudience().asAdventure(text);
         }
