@@ -42,6 +42,7 @@ With this simple fabric mod you can add a little color to your items with Chroma
 🟢 **MiniMessage formating.**  
 🟢 **Permission support for server installation.**  
 🟢 **Ability to blacklist items.**  
+🟢 **Option to disable anvils "too expensive" limit.**  
 🟢 **Extensive configs.**
 
 <div align="center" style="text-align: center;display:block; margin:auto;">

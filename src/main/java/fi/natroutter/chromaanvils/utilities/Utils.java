@@ -2,10 +2,11 @@ package fi.natroutter.chromaanvils.utilities;
 
 import fi.natroutter.chromaanvils.ChromaAnvils;
 import me.lucko.fabric.api.permissions.v0.Permissions;
+import net.fabricmc.loader.api.FabricLoader;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.minimessage.tag.standard.StandardTags;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -14,17 +15,21 @@ import java.util.regex.Pattern;
 public class Utils {
 
 
-    public static boolean hasPermission(PlayerEntity player, String perm, boolean defaultValue) {
-        if (!ChromaAnvils.config().UsePermissions) {
+    public static boolean hasPermission(Player player, String perm, boolean defaultValue) {
+        if (!shouldUsePermissions()) {
             return true;
         }
-        if (!(player instanceof ServerPlayerEntity)) {
+        if (!(player instanceof ServerPlayer)) {
             return true;
         }
         return Permissions.check(player, ChromaAnvils.MOD_ID + "." + perm, defaultValue);
     }
 
-    public static TagResolver[] GetTagsFromPlayerPermissions(ServerPlayerEntity player) {
+    public static boolean shouldUsePermissions() {
+        return ChromaAnvils.config().UsePermissions && FabricLoader.getInstance().isModLoaded("luckperms");
+    }
+
+    public static TagResolver[] GetTagsFromPlayerPermissions(ServerPlayer player) {
         ArrayList<TagResolver> tags = new ArrayList<>();
         if (hasPermission(player, "colors", false)) tags.add(StandardTags.color());
         if (hasPermission(player, "decorations", false)) tags.add(StandardTags.decorations());
